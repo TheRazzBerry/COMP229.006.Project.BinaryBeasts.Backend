@@ -40,7 +40,8 @@ module.exports.update = async function(req, res, next) {
         updatedUser._id = userId;
         // Update User By ID
         let result = await userModel.findByIdAndUpdate(userId, updatedUser);
-        if(!result) throw res.status(404).json({ message: "User Not Found!" });
+        if(!result) throw res.status(500).json({ message: 'Update Failed!' });
+        if(result.updatedCount < 1) throw res.status(404).json({ message: 'User Not Found!' });
         res.status(200).json({ message: 'Successfully Updated User With ID: ' + userId });
     } catch (error) { next(error); }
 }

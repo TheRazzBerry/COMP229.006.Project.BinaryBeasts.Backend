@@ -8,6 +8,7 @@ const SECRETKEY = process.env.JWT_SECRET;
 
 // Define Model Dependencies
 let userModel = require('../models/userModel');
+const tournament = require('../models/tournamentModel');
 
 // Authorized Sign In
 module.exports.signin = async function(req, res, next) {
@@ -38,9 +39,22 @@ module.exports.requireSignIn = expressjwt({
     userProperty: 'auth'
 });
 
-// Check for Authorization
+// Check for Authorization (User Operations)
 module.exports.hasAuth = async function(req, res, next) {
     let authorized = req.auth && req.user && req.user.id == req.auth.id;
     if(!authorized) return res.status(403).json({ message: 'User Not Authorized!' });
+    next();
+}
+
+// Check for Tournament Activation
+module.exports.isTournamentActive = async function(req, res, next) {
+    if(req.tournament.active) return res.status(200).json(req.tournament);
+    next();
+}
+
+// Check for Authorization (Tournament Operations)
+module.exports.isAllowed = async function(req, res, next) {
+    let allowed = req.auth && req.tournament && req.tournament.owner == req.auth.id;
+    if(!allowed) return res.status(403).json({ message: 'User Not Allowed!' });
     next();
 }

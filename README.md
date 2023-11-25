@@ -1,5 +1,11 @@
-# POJECT NAME
-    -> Remember to npm install to get all the required packages
-    -> Create a .env file to set DB_URI
-        : DB_URI = ''
-    -> Add more notes as needed
+# TOURNAMENT CREATOR
+-> COMP229.006.Project.BinaryBeasts.Backend
+-> All routes and controllers stable
+
+# NAMES
+-> 300877261, Razeen Rahman
+-> <StudentID>, <Name>
+-> <StudentID>, <Name>
+-> <StudentID>, <Name>
+-> <StudentID>, <Name>
+-> <StudentID>, <Name>
