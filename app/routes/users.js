@@ -11,15 +11,13 @@ const userModel = require('../models/userModel');
 let userController = require('../controllers/userController');
 let authController = require('../controllers/authController');
 
-
+// Define Router Parameters
+router.param('id', userController.find);
 
 // Define Basic Routes
 router.get('/', (req, res, next) => { res.json({ 'message' : 'users.js root' }); });
 router.get('/find', userController.list);
 router.post('/signup', userController.create);
-
-// Define Router Parameters
-router.param('id', userController.find);
 
 // Define Authorized Routes
 router.get('/find/:id', userController.read);
@@ -29,6 +27,12 @@ router.put('/update/:id',
     authController.hasAuth,
     userController.update    
 );
+router.delete('/delete/:id',
+    authController.requireSignIn,
+    authController.hasAuth,
+    userController.delete
+);
+
 
 // Export Module
 module.exports = router;

@@ -44,3 +44,12 @@ module.exports.update = async function(req, res, next) {
         res.status(200).json({ message: 'Successfully Updated User With ID: ' + userId });
     } catch (error) { next(error); }
 }
+
+module.exports.delete = async function(req, res, next) {
+    try {
+        let userId = req.params.id;
+        let result = await userModel.deleteOne({ _id: userId });
+        if(!result) throw res.status(404).json({ message: 'Error! Nothing Was Deleted!' });
+        res.status(200).json({ message: 'Deleted The User With The ID: ' + userId });
+    } catch (error) { next(error); }
+}
