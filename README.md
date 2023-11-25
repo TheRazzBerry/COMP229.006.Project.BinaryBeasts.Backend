@@ -4,8 +4,8 @@
 
 # NAMES
 -> 300877261, Razeen Rahman
--> <StudentID>, <Name>
--> <StudentID>, <Name>
--> <StudentID>, <Name>
--> <StudentID>, <Name>
--> <StudentID>, <Name>
+-> StudentID, Name
+-> StudentID, Name
+-> StudentID, Name
+-> StudentID, Name
+-> StudentID, Name
