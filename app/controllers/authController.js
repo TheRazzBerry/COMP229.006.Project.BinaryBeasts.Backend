@@ -17,16 +17,17 @@ module.exports.signin = async function(req, res, next) {
         if(!user.authenticate(req.body.password)) throw res.status(400).json({ message: 'Incorrect Password!' });
         // Define JWT Payload
         let payload = {
-            id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            id: user._id
         }
         // Sign JWT
         let signedToken = jwt.sign(payload, SECRETKEY, { algorithm: 'HS512' });
-        return res.status(200).json({ 
+        res.status(200).json({ 
             message: 'JSON Web Token Recieved!',
             id: user._id, 
-            token: signedToken });
+            token: signedToken 
+        });
     } catch (error) { next(error); }
 }
 
