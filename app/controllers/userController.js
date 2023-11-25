@@ -2,7 +2,10 @@
 let userModel = require('../models/userModel');
 
 // Read User Method
-module.exports.read = function(req, res, next) { res.json(req.user); }
+module.exports.read = function(req, res, next) { 
+    res.json(req.user);
+    next();
+}
 
 // Create New User
 module.exports.create = async function(req, res, next) {
@@ -34,12 +37,11 @@ module.exports.find = async function(req, res, next) {
 module.exports.update = async function(req, res, next) {
     try {
         let userId = req.params.id;
-        let user = userModel(req.body);
+        let updatedUser = userModel(req.body);
+        updatedUser._id = userId;
         // Update User By ID
-        let result = await userModel.findByIdAndUpdate(userId, user);
+        let result = await userModel.findByIdAndUpdate(userId, updatedUser);
         if(!result) throw res.status(404).json({ message: "User Not Found!" });
-        // Get Updated User Information
-        let updatedUser = await userModel.findById(userId);
-        res.status(200).json(updatedUser);
+        res.status(200).json({ message: 'Successfully Updated User With ID: ' + userId });
     } catch (error) { next(error); }
 }

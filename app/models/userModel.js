@@ -4,10 +4,9 @@ const crypto = require('crypto');
 
 // Create Schema
 const userSchema = mongoose.Schema({
-    userName: {
+    name: {
         type: String,
         trim: true,
-        unique: true,
         required: true
     },
     email: {
@@ -19,11 +18,9 @@ const userSchema = mongoose.Schema({
     },
     hashedPass: {
         type: String,
-        required: true
     },
     salt: {
         type: String,
-        required: true
     },
     created: {
         type: Date,

@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 // Define Model Dependencies
-const User = require('../models/userModel');
+const userModel = require('../models/userModel');
 
 // Define Controllers
 let userController = require('../controllers/userController');
@@ -21,7 +21,7 @@ router.post('/signup', userController.create);
 router.post('/signin', authController.signin);
 router.put('/update/:id', 
     authController.requireSignIn,
-    authController.hasAuth,
+    //authController.hasAuth,
     userController.update    
 );
 
