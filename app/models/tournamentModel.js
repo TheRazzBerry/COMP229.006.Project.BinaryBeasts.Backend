@@ -22,8 +22,17 @@ const tournamentSchema = mongoose.Schema({
         default: 8
     },
     teams: [{
-        teamName: { type: String },
-        teamNotes: { type: String }
+        teamName: {
+            type: String,
+            required: true
+        },
+        teamNotes: {
+            type: String 
+        },
+        points: {
+            type: Number,
+            default: 0
+        }
     }],
     active: {
         type: Boolean,
