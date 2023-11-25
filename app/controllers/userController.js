@@ -1,12 +1,6 @@
 // Define Model
 let userModel = require('../models/userModel');
 
-// Read User Method
-module.exports.read = function(req, res, next) { 
-    res.json(req.user);
-    next();
-}
-
 // Create New User
 module.exports.create = async function(req, res, next) {
     try {
@@ -28,9 +22,14 @@ module.exports.list = async function(req, res, next) {
 module.exports.find = async function(req, res, next) {
     try {
         let userId = req.params.id;
-        let user = await userModel.findById(userId, '-hashedPass -salt');
-        return res.status(200).json(user);
+        req.user = await userModel.findOne({ _id: userId }, '-hashedPass -salt');
+        next();
     } catch (error) { next(error); }
+}
+
+// Read User Method
+exports.read = function(req, res, next) { 
+    res.json(req.user);
 }
 
 // Update User Information By ID

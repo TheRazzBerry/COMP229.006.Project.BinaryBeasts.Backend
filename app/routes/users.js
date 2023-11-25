@@ -11,17 +11,22 @@ const userModel = require('../models/userModel');
 let userController = require('../controllers/userController');
 let authController = require('../controllers/authController');
 
+
+
 // Define Basic Routes
 router.get('/', (req, res, next) => { res.json({ 'message' : 'users.js root' }); });
 router.get('/find', userController.list);
-router.get('/find/:id', userController.find);
 router.post('/signup', userController.create);
 
+// Define Router Parameters
+router.param('id', userController.find);
+
 // Define Authorized Routes
+router.get('/find/:id', userController.read);
 router.post('/signin', authController.signin);
 router.put('/update/:id', 
     authController.requireSignIn,
-    //authController.hasAuth,
+    authController.hasAuth,
     userController.update    
 );
 
