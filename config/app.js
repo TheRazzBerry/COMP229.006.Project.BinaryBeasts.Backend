@@ -1,6 +1,7 @@
 // Define Dependencies
 const createError = require('http-errors');
 const logger = require('morgan');
+const cors = require('cors');
 const express = require('express');
 
 // Define Express Application
@@ -13,8 +14,9 @@ const tournamentRouter = require('../app/routes/tournaments.js');
 
 // Define Middleware Routes
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // Define Page Routes
 app.use('/', indexRouter);
