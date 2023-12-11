@@ -21,6 +21,10 @@ router.post('/signup', userController.create);
 
 // Define Authorized Routes
 router.get('/find/:id', userController.read);
+router.get('/tournaments', 
+    authController.requireSignIn,
+    userController.getMyTournaments
+);
 router.post('/signin', authController.signin);
 router.put('/update/:id', 
     authController.requireSignIn,

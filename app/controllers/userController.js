@@ -1,5 +1,6 @@
 // Define Model
 let userModel = require('../models/userModel');
+let tournamentModel = require('../models/tournamentModel');
 
 // Create New User
 module.exports.create = async function(req, res, next) {
@@ -52,5 +53,13 @@ module.exports.delete = async function(req, res, next) {
         let result = await userModel.deleteOne({ _id: userId });
         if(!result) throw res.status(404).json({ message: 'Error! Nothing Was Deleted!' });
         res.status(200).json({ message: 'Deleted The User With The ID: ' + userId });
+    } catch (error) { next(error); }
+}
+
+module.exports.getMyTournaments = async function(req, res, next) {
+    try {
+        let userId = req.params.id;
+        let myTournamentsList = await tournamentModel.find({ owner: userId });
+        res.status(200).json(myTournamentsList);
     } catch (error) { next(error); }
 }
