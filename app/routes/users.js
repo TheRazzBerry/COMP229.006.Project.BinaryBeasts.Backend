@@ -15,21 +15,21 @@ let authController = require('../controllers/authController');
 router.param('id', userController.find);
 
 // Define Basic Routes
-router.get('/', (req, res, next) => { res.json({ message : 'users.js root' }); });
+router.get('/', (req, res, next) => { res.json({ message: 'users.js root' }); });
 router.get('/find', userController.list);
 router.post('/signup', userController.create);
 
 // Define Authorized Routes
 router.get('/find/:id', userController.read);
-router.get('/tournaments', 
+router.get('/tournaments',
     authController.requireSignIn,
-    userController.getMyTournaments
+    authController.getMyTournaments
 );
 router.post('/signin', authController.signin);
-router.put('/update/:id', 
+router.put('/update/:id',
     authController.requireSignIn,
     authController.hasAuth,
-    userController.update    
+    userController.update
 );
 router.delete('/delete/:id',
     authController.requireSignIn,
