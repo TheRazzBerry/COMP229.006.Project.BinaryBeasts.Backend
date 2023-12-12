@@ -1,9 +1,5 @@
 // Define Model
 let userModel = require('../models/userModel');
-let tournamentModel = require('../models/tournamentModel');
-
-// Define Auth
-let authController = require('./authController');
 
 // Create New User
 module.exports.create = async function (req, res, next) {
@@ -50,6 +46,7 @@ module.exports.update = async function (req, res, next) {
     } catch (error) { next(error); }
 }
 
+//Delete User By ID
 module.exports.delete = async function (req, res, next) {
     try {
         let userId = req.params.id;
